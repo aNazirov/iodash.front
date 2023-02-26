@@ -5,7 +5,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["file.sunnyart.com", "play-lh.googleusercontent.com"],
+    domains: ["159.223.157.138"],
   },
 };
 
