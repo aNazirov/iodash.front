@@ -11,7 +11,7 @@ interface IState {
 const initialState: IState = {
   token: null,
   user: null,
-  newAssets: +(Math.random() * 100).toFixed(2),
+  newAssets: +(Math.random() * 100).toFixed(0),
 };
 
 export const {
@@ -24,7 +24,7 @@ export const {
     updateUser: (state, action: PayloadAction<{ user: IUser }>) => {
       state.user = action.payload.user;
     },
-    
+
     logIn: (state, action: PayloadAction<{ user: IUser; token: string }>) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
