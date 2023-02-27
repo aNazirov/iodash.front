@@ -167,7 +167,7 @@ export const filesUpload = (
 };
 
 export const fileDelete = (id: number) => {
-  return api
+  return fileApi
     .delete(`/file/${id}`, undefined, {
       pending: "File is deleting ...",
       success: "File deleted",
