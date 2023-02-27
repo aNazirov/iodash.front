@@ -93,7 +93,7 @@ export const getAllService = (
       headers: { Authorization: `Bearer ${token}` },
     })
     .then((res) => res.data)
-    .catch((e) => console.log(e));
+    .catch(console.log);
 };
 
 export const updateService = (
