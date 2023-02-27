@@ -15,10 +15,14 @@ const SidebarItem: React.FC<ISidebarItemProps> = ({ category }) => {
   return (
     <li className={classNames(pathname === href && "highlighted")}>
       <CLink
-        href={{
-          pathname: `/category/[id]`,
-          query: { id: category.id, title: category.title },
-        }}
+        href={
+          pathname !== href
+            ? {
+                pathname: `/category/[id]`,
+                query: { id: category.id, title: category.title },
+              }
+            : ""
+        }
       >
         <span className="products-nav__text">{category.title}</span>
         <span className="products-nav__number">{category._count?.lessons}</span>
@@ -28,7 +32,10 @@ const SidebarItem: React.FC<ISidebarItemProps> = ({ category }) => {
 };
 
 export const Sidebar: React.FC = () => {
+  const { pathname } = useRouter();
+  const { newAssets } = useAppSelector((state) => state.global);
   const { categories } = useAppSelector((state) => state.categories);
+
   const allProducts = categories.reduce(
     (total, x) => total + (x._count?.lessons ?? 0),
     0
@@ -40,9 +47,16 @@ export const Sidebar: React.FC = () => {
         <nav className="products-nav">
           <ul>
             <li className="highlighted">
-              <CLink href={"/"}>
+              <CLink href={pathname !== "/" ? "/" : ""}>
                 <span className="products-nav__text">All products</span>
                 <span className="products-nav__number">{allProducts}</span>
+              </CLink>
+            </li>
+
+            <li className="highlighted">
+              <CLink href={pathname !== "/new-assets" ? "/new-assets" : ""}>
+                <span className="products-nav__text">New assets</span>
+                <span className="products-nav__number">{newAssets}</span>
               </CLink>
             </li>
 

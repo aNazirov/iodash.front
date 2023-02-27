@@ -9,7 +9,7 @@ import { PrivateComponent } from "../../shared/private";
 
 export const Header: FC = () => {
   const { pathname } = useRouter();
-  const { user } = useAppSelector((state) => state.global);
+  const { user, newAssets } = useAppSelector((state) => state.global);
 
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -27,7 +27,7 @@ export const Header: FC = () => {
       <div className="container">
         <div className="header__in">
           <div className="logo">
-            <CLink href="/">
+            <CLink href={pathname !== "/" ? "/" : ""}>
               <CImg src="/img/bg/logo.svg" alt="iodash" />
             </CLink>
           </div>
@@ -45,18 +45,26 @@ export const Header: FC = () => {
             <nav className="main-nav">
               <ul>
                 <li className={classNames(pathname === "/price" && "active")}>
-                  <CLink href="/price">Pricing</CLink>
+                  <CLink href={pathname !== "/price" ? "/price" : ""}>
+                    Pricing
+                  </CLink>
                 </li>
                 <li className={classNames(pathname === "/info" && "active")}>
-                  <CLink href="/info">Privacy Policy</CLink>
+                  <CLink href={pathname !== "/info" ? "/info" : ""}>
+                    Privacy Policy
+                  </CLink>
                 </li>
                 <li
                   className={classNames(pathname === "/about-us" && "active")}
                 >
-                  <CLink href="/about-us">About us</CLink>
+                  <CLink href={pathname !== "/about-us" ? "/about-us" : ""}>
+                    About us
+                  </CLink>
                 </li>
                 <li className={classNames(pathname === "/support" && "active")}>
-                  <CLink href="/support">Support</CLink>
+                  <CLink href={pathname !== "/support" ? "/support" : ""}>
+                    Support
+                  </CLink>
                 </li>
               </ul>
             </nav>
@@ -73,11 +81,13 @@ export const Header: FC = () => {
                 }
               >
                 <CLink href="/new-assets" className="btn">
-                  New assets<span className="btn__number">10</span>
+                  New assets<span className="btn__number">{newAssets}</span>
                 </CLink>
                 <div className="user-panel">
                   <div className="favourites">
-                    <CLink href="/favourites">
+                    <CLink
+                      href={pathname !== "/favourites" ? "/favourites" : ""}
+                    >
                       <span className="favourites__number">
                         {user?._count.favourites}
                       </span>
@@ -101,7 +111,9 @@ export const Header: FC = () => {
                         <span className="account__user">{user?.name}</span>
                         <ul className="account__list">
                           <li>
-                            <CLink href="/profile">
+                            <CLink
+                              href={pathname !== "/profile" ? "/profile" : ""}
+                            >
                               <span className="account__icon">
                                 <CImg
                                   src="/img/bg/account-icon-1.svg"
@@ -112,7 +124,11 @@ export const Header: FC = () => {
                             </CLink>
                           </li>
                           <li>
-                            <CLink href="/purchases">
+                            <CLink
+                              href={
+                                pathname !== "/purchases" ? "/purchases" : ""
+                              }
+                            >
                               <span className="account__icon">
                                 <CImg
                                   src="/img/bg/account-icon-2.svg"
@@ -123,7 +139,9 @@ export const Header: FC = () => {
                             </CLink>
                           </li>
                           <li>
-                            <CLink href="/profile">
+                            <CLink
+                              href={pathname !== "/profile" ? "/profile" : ""}
+                            >
                               <span className="account__icon">
                                 <CImg
                                   src="/img/bg/account-icon-3.svg"
@@ -136,7 +154,7 @@ export const Header: FC = () => {
                             </CLink>
                           </li>
                           <li onClick={logout}>
-                            <a href="#">
+                            <a href="#" onClick={(e) => e.preventDefault()}>
                               <span className="account__icon">
                                 <CImg
                                   src="/img/bg/account-icon-4.svg"

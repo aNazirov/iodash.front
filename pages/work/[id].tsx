@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { CImg, CLink } from "../../core/components/shared";
 import { LessonList } from "../../core/components/shared/lesson";
 import { PrivateComponent } from "../../core/components/shared/private";
-import { TagItem } from "../../core/components/shared/tag";
+import { TechnologyItem } from "../../core/components/shared/technology";
 import { IRole } from "../../core/helpers/utils/enums";
 import { IFile } from "../../core/interfaces";
 import { download, favourite } from "../../core/services";
@@ -24,7 +24,7 @@ const Lesson: React.FC = () => {
       getLessons({
         token: token ?? "",
         params: {
-          categoryId: lesson?.categories[+(Math.random() * 100).toFixed(2)],
+          tag: lesson?.tags[+(Math.random() * 100).toFixed(2)],
         },
       })
     );
@@ -72,8 +72,11 @@ const Lesson: React.FC = () => {
           />
         </div>
         <div className="card__description">
-          {lesson?.tags.map((x, i) => (
-            <TagItem key={`lesson-${x.id}-tag-${x.id}-${i}`} tag={x} />
+          {lesson?.technologies.map((x, i) => (
+            <TechnologyItem
+              key={`lesson-${x.id}-tag-${x.id}-${i}`}
+              technology={x}
+            />
           ))}
           <div className="statistics">
             <div className="statistics-item">
@@ -184,10 +187,10 @@ const Lesson: React.FC = () => {
         </div>
       </div>
       <dl className="tags">
-        <dt>Categories</dt>
+        <dt>Tags</dt>
         <dd>
-          {lesson?.categories.map((x, i) => (
-            <span key={`lesson-${x.id}-category-${x.id}-${i}`} className="tag">
+          {lesson?.tags.map((x, i) => (
+            <span key={`lesson-${x.id}-tag-${x.id}-${i}`} className="tag">
               {x.title}
             </span>
           ))}

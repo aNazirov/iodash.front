@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { CImg } from "../img";
 import { CLink } from "../link";
 import { PrivateComponent } from "../private";
-import { TagItem } from "../tag";
+import { TechnologyItem } from "../technology";
 
 interface ILessonItemProps {
   token: string;
@@ -45,8 +45,6 @@ export const LessonItem: React.FC<ILessonItemProps> = ({ token, lesson }) => {
     dispatch(logIn({ user: res, token }));
   };
 
-  console.log(lesson);
-
   return (
     <div className="work">
       <div className="work__photo">
@@ -57,8 +55,11 @@ export const LessonItem: React.FC<ILessonItemProps> = ({ token, lesson }) => {
       <h3 className="work__title">
         <CLink href={href}>{lesson.title} </CLink>
       </h3>
-      {lesson.tags.map((x, i) => (
-        <TagItem key={`lesson-${lesson.id}-tag-${x.id}-${i}`} tag={x} />
+      {lesson.technologies.map((x, i) => (
+        <TechnologyItem
+          key={`lesson-${lesson.id}-technology-${x.id}-${i}`}
+          technology={x}
+        />
       ))}
       <div className="work__bottom-panel">
         <span className="work__price">${lesson.price}</span>

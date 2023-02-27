@@ -52,6 +52,11 @@ export interface ICategory {
 export interface ITag {
   id: number;
   title: string;
+}
+
+export interface ITechnology {
+  id: number;
+  title: string;
   icon?: IFile;
 }
 
@@ -75,6 +80,7 @@ export interface ILesson {
   categories: ICategory[];
   isFavourite?: boolean;
   tags: ITag[];
+  technologies: ITechnology[];
   _count?: {
     downloads: number;
     views: number;

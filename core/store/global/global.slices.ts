@@ -5,11 +5,13 @@ import { IUser } from "../../interfaces";
 interface IState {
   token: string | null;
   user: IUser | null;
+  newAssets: number;
 }
 
 const initialState: IState = {
   token: null,
   user: null,
+  newAssets: +(Math.random() * 100).toFixed(2),
 };
 
 export const {
