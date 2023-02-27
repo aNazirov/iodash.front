@@ -4,16 +4,16 @@ import { Toast } from "../helpers/utils";
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
-    // origin: process.env.NEXT_PUBLIC_HOST,
-    origin: undefined,
+    origin: process.env.NEXT_PUBLIC_HOST,
+    // origin: undefined,
   },
 });
 
 const fileInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_FILE_API_URL,
   headers: {
-    // origin: process.env.NEXT_PUBLIC_HOST,
-    origin: undefined,
+    origin: process.env.NEXT_PUBLIC_HOST,
+    // origin: undefined,
   },
 });
 
