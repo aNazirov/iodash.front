@@ -10,7 +10,7 @@ import { IRole } from "../../core/helpers/utils/enums";
 import { IFile } from "../../core/interfaces";
 import { download, favourite } from "../../core/services";
 import { wrapper } from "../../core/store";
-import { autoLogIn, logIn } from "../../core/store/global";
+import { autoLogIn, updateUser } from "../../core/store/global";
 import { useAppDispatch, useAppSelector } from "../../core/store/hooks";
 import { clearLessons, getLesson, getLessons } from "../../core/store/lessons";
 import { getMainPageData } from "../../core/store/main";
@@ -60,7 +60,7 @@ const Lesson: React.FC = () => {
   const onFavoutrite = (id: number) => async () => {
     const res = await favourite(id, token ?? "");
 
-    dispatch(logIn({ user: res, token: token ?? "" }));
+    dispatch(updateUser({ user: res }));
   };
 
   return (

@@ -6,7 +6,7 @@ import { PriceItem } from "../core/components/shared/price";
 import { classNames, formatData, imageUpload } from "../core/helpers/utils";
 import { fileDelete, filesUpload, updateService } from "../core/services";
 import { wrapper } from "../core/store";
-import { autoLogIn, logIn } from "../core/store/global";
+import { autoLogIn, updateUser } from "../core/store/global";
 import { useAppDispatch, useAppSelector } from "../core/store/hooks";
 import { getMainPageData } from "../core/store/main";
 
@@ -58,7 +58,7 @@ const Profile: React.FC = () => {
       "user"
     );
 
-    dispatch(logIn({ user: res, token: token! }));
+    dispatch(updateUser({ user: res }));
   };
 
   const imageDelete = async (id: number) => {

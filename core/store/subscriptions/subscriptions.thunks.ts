@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSubscriptions, subscribe, unsubscribe } from "../../services";
-import { logIn } from "../global";
+import { updateUser } from "../global";
 import { setSubscriptions } from "./subscriptions.slices";
 
 export const getSubscriptionsThunk = createAsyncThunk(
@@ -38,7 +38,9 @@ export const subscribeThunk = createAsyncThunk(
     const subscriptionType = await subscribe(id, token);
 
     if (subscriptionType) {
-      thunkAPI.dispatch(logIn({ user: { ...user, subscriptionType }, token }));
+      thunkAPI.dispatch(
+        updateUser({ user: { ...user, subscriptionType: null } })
+      );
     }
   },
   {
@@ -59,7 +61,7 @@ export const unsubscribeThunk = createAsyncThunk(
 
     if (res) {
       thunkAPI.dispatch(
-        logIn({ user: { ...user, subscriptionType: null }, token })
+        updateUser({ user: { ...user, subscriptionType: null } })
       );
     }
   },

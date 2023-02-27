@@ -2566,8 +2566,7 @@ textarea:focus {
   .card__photo {
     margin: 0 0 30px;
     width: 100%;
-    height: 100%;
-    position: relative;
+    height: 683px;
   }
 
   .works_changed .work:last-child {
@@ -2769,6 +2768,10 @@ textarea:focus {
   .profile-form {
     padding: 20px;
     border-radius: 10px;
+  }
+
+  .card__photo {
+    height: 283px;
   }
 }
 

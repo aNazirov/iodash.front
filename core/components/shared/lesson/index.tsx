@@ -3,7 +3,7 @@ import { IRole } from "../../../helpers/utils/enums";
 import { defaultImage } from "../../../helpers/_data/datas";
 import { IFile, ILesson } from "../../../interfaces";
 import { download, favourite } from "../../../services";
-import { logIn } from "../../../store/global";
+import { updateUser } from "../../../store/global";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { CImg } from "../img";
 import { CLink } from "../link";
@@ -42,7 +42,7 @@ export const LessonItem: React.FC<ILessonItemProps> = ({ token, lesson }) => {
   const onFavoutrite = (id: number) => async () => {
     const res = await favourite(id, token);
 
-    dispatch(logIn({ user: res, token }));
+    dispatch(updateUser({ user: res }));
   };
 
   return (
