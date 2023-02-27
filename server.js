@@ -3,10 +3,11 @@ const { parse } = require("url");
 const next = require("next");
 
 const dev = process.env.NEXT_PUBLIC_MODE !== "PROD";
-const hostname = process.env.NEXT_PUBLIC_HOSTNAME;
-const port = process.env.NEXT_PUBLIC_PORT;
+const hostname = process.env.NEXT_PUBLIC_HOSTNAME ?? "localhost";
+const port = process.env.NEXT_PUBLIC_PORT ?? 8000;
 
 // when using middleware `hostname` and `port` must be provided below
+console.log(dev, hostname, port);
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 

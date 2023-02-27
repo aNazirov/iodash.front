@@ -36,8 +36,6 @@ export const autoLogIn = (token: string) => async (dispatch: any) => {
       dispatch(logIn({ user, token }));
     })
     .catch((e) => {
-      console.log(e);
-
       if ([404, 403].includes(e.response?.status)) {
         dispatch(logOut());
       }

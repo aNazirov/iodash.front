@@ -59,7 +59,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
         global: { token },
       } = store.getState();
 
-
       if (cookies["token"] && !token) {
         await store.dispatch(autoLogIn(cookies["token"]));
       }

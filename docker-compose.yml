@@ -9,4 +9,4 @@ services:
       - /usr/src/app/public:/app/public
     restart: always
     ports:
-      - 8000:8000
+      - 3030:3030
