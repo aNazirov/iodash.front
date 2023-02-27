@@ -1,4 +1,4 @@
-import { api, fileApi, localApi } from "../../api";
+import { api, fileApi } from "../../api";
 import { filter, Toast } from "../../helpers/utils";
 import { ILogin, IRegistration } from "../../interfaces";
 
@@ -64,7 +64,7 @@ export const registrationService = (params: IRegistration) => {
 };
 
 export const getUserByToken = (token: string) => {
-  return localApi
+  return api
     .get("/user/token", { headers: { Authorization: `Bearer ${token}` } })
     .then((res) => res.data);
 };
@@ -120,7 +120,7 @@ export const updateService = (
 export const getSubscriptions = (skip: number, token: string, params: any) => {
   params = filter(params);
 
-  return localApi
+  return api
     .get(`/subscription-type`, {
       params: {
         skip,
