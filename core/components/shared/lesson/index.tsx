@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Toast } from "../../../helpers/utils";
 import { IRole } from "../../../helpers/utils/enums";
 import { defaultImage } from "../../../helpers/_data/datas";
 import { IFile, ILesson } from "../../../interfaces";
@@ -23,19 +24,25 @@ export const LessonItem: React.FC<ILessonItemProps> = ({ token, lesson }) => {
     const file: IFile = await download(id, token);
 
     if (file) {
-      axios.get(file.url, { responseType: "blob" }).then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
+      Toast.promise(
+        axios.get(file.url, { responseType: "blob" }).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
 
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", file.name); //or any other extension
-        document.body.appendChild(link);
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", file.name); //or any other extension
+          document.body.appendChild(link);
 
-        link.click();
+          link.click();
 
-        link.parentNode?.removeChild(link);
-        URL.revokeObjectURL(url);
-      });
+          link.parentNode?.removeChild(link);
+          URL.revokeObjectURL(url);
+        }),
+        {
+          pending: "Start downloading ...",
+          success: "Downloaded",
+        }
+      );
     }
   };
 

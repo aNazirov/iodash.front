@@ -9,16 +9,17 @@ interface ISidebarItemProps {
 }
 
 const SidebarItem: React.FC<ISidebarItemProps> = ({ category }) => {
-  const { pathname } = useRouter();
-  const href = `/category/${category.id}`;
+  const { pathname, query } = useRouter();
+  const isCurrent =
+    pathname.includes("category") && +(query.id ?? 0) === category.id;
 
   return (
-    <li className={classNames(pathname === href && "highlighted")}>
+    <li className={classNames(isCurrent && "highlighted")}>
       <CLink
         href={
-          pathname !== href
+          !isCurrent
             ? {
-                pathname: `/category/[id]`,
+                pathname: "/category/[id]",
                 query: { id: category.id, title: category.title },
               }
             : ""

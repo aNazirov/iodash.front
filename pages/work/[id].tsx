@@ -6,6 +6,7 @@ import { CImg, CLink } from "../../core/components/shared";
 import { LessonList } from "../../core/components/shared/lesson";
 import { PrivateComponent } from "../../core/components/shared/private";
 import { TechnologyItem } from "../../core/components/shared/technology";
+import { Toast } from "../../core/helpers/utils";
 import { IRole } from "../../core/helpers/utils/enums";
 import { IFile } from "../../core/interfaces";
 import { download, favourite } from "../../core/services";
@@ -41,19 +42,25 @@ const Lesson: React.FC = () => {
     const file: IFile = await download(id, token ?? "");
 
     if (file) {
-      axios.get(file.url, { responseType: "blob" }).then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
+      Toast.promise(
+        axios.get(file.url, { responseType: "blob" }).then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
 
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", file.name); //or any other extension
-        document.body.appendChild(link);
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", file.name); //or any other extension
+          document.body.appendChild(link);
 
-        link.click();
+          link.click();
 
-        link.parentNode?.removeChild(link);
-        URL.revokeObjectURL(url);
-      });
+          link.parentNode?.removeChild(link);
+          URL.revokeObjectURL(url);
+        }),
+        {
+          pending: "Downloading ...",
+          success: "Downloaded",
+        }
+      );
     }
   };
 
