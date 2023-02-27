@@ -45,6 +45,8 @@ COPY --from=builder --chown=nextjs:nodejs /usr/src/app/.next/static ./.next/stat
 
 USER nextjs
 
-ENTRYPOINT ["bash", "./docker-entrypoint.sh"]
+EXPOSE 8000
 
-CMD ["runserver"]
+ENV PORT 8000
+
+CMD ["node", "server.js"]
