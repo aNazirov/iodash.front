@@ -19,6 +19,7 @@ export const PriceItem: React.FC<IPriceItemProps> = ({
   currentSubscriptionId,
 }) => {
   const isCurrentSubscription = currentSubscriptionId === subscription.id;
+  const points = subscription.points?.split(",") as string[];
   const dispatch = useAppDispatch();
 
   const onClick = useCallback(async () => {
@@ -47,9 +48,9 @@ export const PriceItem: React.FC<IPriceItemProps> = ({
       </div>
       <div className="price-item__bottom-col">
         <ul className="price-item__list">
-          <li>All sections for using</li>
-          <li>{subscription.downloadsPerDay} downloads per day</li>
-          <li>Priority Support</li>
+          {points.map((x, i) => (
+            <li key={`point-${x}-${i}`}>{x}</li>
+          ))}
         </ul>
         <span className="program-name">
           <CImg
