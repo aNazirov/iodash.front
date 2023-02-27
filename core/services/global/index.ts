@@ -159,8 +159,8 @@ export const filesUpload = (
           : {}),
       },
       {
-        pending: "Загрузка файлов ...",
-        success: "Файлы загружены",
+        pending: "Files are uploading ...",
+        success: "Files uploaded",
       }
     )
     .then((res) => res.data);
