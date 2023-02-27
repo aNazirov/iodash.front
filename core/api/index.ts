@@ -9,6 +9,14 @@ const instance = axios.create({
   },
 });
 
+const localInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_LOCAL_API_URL,
+  headers: {
+    origin: `${process.env.NEXT_PUBLIC_HOSTNAME}:${process.env.NEXT_PUBLIC_PORT}`,
+    // origin: undefined,
+  },
+});
+
 const fileInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_FILE_API_URL,
   headers: {
@@ -68,6 +76,7 @@ class Api {
 }
 
 const api = new Api(instance);
+const localApi = new Api(localInstance);
 const fileApi = new Api(fileInstance);
 
-export { api, fileApi };
+export { api, localApi, fileApi };

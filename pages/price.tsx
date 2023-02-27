@@ -9,7 +9,7 @@ import { clearLessons, getLessons } from "../core/store/lessons";
 import { getMainPageData } from "../core/store/main";
 import {
   clearSubscriptions,
-  getSubscriptions,
+  getSubscriptionsThunk,
 } from "../core/store/subscriptions";
 
 const Price: React.FC = () => {
@@ -28,8 +28,6 @@ const Price: React.FC = () => {
       dispatch(clearLessons());
     };
   }, []);
-
-  
 
   return (
     <section className="main-content">
@@ -54,7 +52,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
       }
 
       await store.dispatch(getMainPageData({}));
-      await store.dispatch(getSubscriptions({}));
+      await store.dispatch(
+        getSubscriptionsThunk({ token: token ?? cookies["token"] })
+      );
 
       return {
         props: {},

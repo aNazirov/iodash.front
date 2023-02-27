@@ -1,15 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllService, subscribe, unsubscribe } from "../../services";
+import { getSubscriptions, subscribe, unsubscribe } from "../../services";
 import { logIn } from "../global";
 import { setSubscriptions } from "./subscriptions.slices";
 
-export const getSubscriptions = createAsyncThunk(
+export const getSubscriptionsThunk = createAsyncThunk(
   "main/setSubscriptions",
   async (
-    { skip = 0, params = undefined }: { skip?: number; params?: any },
+    {
+      skip = 0,
+      token,
+      params = undefined,
+    }: { skip?: number; token?: string; params?: any },
     thunkAPI
   ) => {
-    const res = await getAllService(skip, "", params, "subscription-type");
+    const res = await getSubscriptions(skip, token || "", params);
 
     if (res) {
       thunkAPI.dispatch(
