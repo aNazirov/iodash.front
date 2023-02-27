@@ -471,6 +471,11 @@ body,
   height: 40px;
   border: 1px solid rgba(114, 107, 234, 0.26);
   border-radius: 100%;
+}
+
+.gl-icon .icon {
+  width: 21px;
+  height: 21px;
   position: relative;
 }
 

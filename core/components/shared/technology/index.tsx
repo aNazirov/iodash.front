@@ -11,11 +11,9 @@ export const TechnologyItem: React.FC<ITechnologyItemProps> = ({
 }) => {
   return (
     <span className="program-name">
-      <CImg
-        className="program-name__logo"
-        src={technology.icon?.url ?? defaultImage}
-        alt="Figma"
-      />
+      <div className="program-name__logo">
+        <CImg src={technology.icon?.url ?? defaultImage} alt="Figma" />
+      </div>
       <span className="program-name__text">{technology.title}</span>
     </span>
   );

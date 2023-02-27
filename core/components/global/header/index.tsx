@@ -92,14 +92,18 @@ export const Header: FC = () => {
                         {user?._count.favourites}
                       </span>
                       <span className="gl-icon">
-                        <CImg src="/img/bg/heart.svg" alt="icon" />
+                        <div className="icon">
+                          <CImg src="/img/bg/heart.svg" alt="icon" />
+                        </div>
                       </span>
                     </CLink>
                   </div>
                   <div className="account">
                     <div className="account__in">
                       <span className="gl-icon">
-                        <CImg src="/img/bg/user.svg" alt="icon" />
+                        <div className="icon">
+                          <CImg src="/img/bg/user.svg" alt="icon" />
+                        </div>
                       </span>
                       <div className="account__info">
                         <span className="account__name">{user?.name}</span>
