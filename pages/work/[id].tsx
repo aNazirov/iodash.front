@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { CImg, CLink } from "../../core/components/shared";
 import { LessonList } from "../../core/components/shared/lesson";
@@ -15,6 +16,7 @@ import { clearLessons, getLesson, getLessons } from "../../core/store/lessons";
 import { getMainPageData } from "../../core/store/main";
 
 const Lesson: React.FC = () => {
+  const { pathname } = useRouter();
   const { token } = useAppSelector((state) => state.global);
   const { lesson } = useAppSelector((state) => state.lessons);
   const dispatch = useAppDispatch();
@@ -189,11 +191,26 @@ const Lesson: React.FC = () => {
       <dl className="tags">
         <dt>Tags</dt>
         <dd>
-          {lesson?.tags.map((x, i) => (
-            <span key={`lesson-${x.id}-tag-${x.id}-${i}`} className="tag">
-              {x.title}
-            </span>
-          ))}
+          {lesson?.tags.map((x, i) => {
+            const href = `/tag/${x.id}`;
+
+            return (
+              <CLink
+                key={`lesson-${x.id}-tag-${x.id}-${i}`}
+                className="tag"
+                href={
+                  pathname !== href
+                    ? {
+                        pathname: "/tag/[id]",
+                        query: { id: x.id, title: x.title },
+                      }
+                    : ""
+                }
+              >
+                {x.title}
+              </CLink>
+            );
+          })}
         </dd>
       </dl>
       <h2 className="title">You may also like</h2>
