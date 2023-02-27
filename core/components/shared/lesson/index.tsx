@@ -55,12 +55,14 @@ export const LessonItem: React.FC<ILessonItemProps> = ({ token, lesson }) => {
       <h3 className="work__title">
         <CLink href={href}>{lesson.title} </CLink>
       </h3>
-      {lesson.technologies.map((x, i) => (
-        <TechnologyItem
-          key={`lesson-${lesson.id}-technology-${x.id}-${i}`}
-          technology={x}
-        />
-      ))}
+      <div className="programs">
+        {lesson.technologies.map((x, i) => (
+          <TechnologyItem
+            key={`lesson-${lesson.id}-technology-${x.id}-${i}`}
+            technology={x}
+          />
+        ))}
+      </div>
       <div className="work__bottom-panel">
         <span className="work__price">${lesson.price}</span>
 

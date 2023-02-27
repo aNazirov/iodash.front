@@ -959,6 +959,11 @@ body,
   color: #6271eb;
 }
 
+.work .programs {
+  display: flex;
+  gap: 15px;
+}
+
 .program-name {
   display: flex;
   justify-content: center;
