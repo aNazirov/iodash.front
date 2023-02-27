@@ -40,10 +40,10 @@ export const Sidebar: React.FC = () => {
         <nav className="products-nav">
           <ul>
             <li className="highlighted">
-              <a href="#">
+              <CLink href={"/"}>
                 <span className="products-nav__text">All products</span>
                 <span className="products-nav__number">{allProducts}</span>
-              </a>
+              </CLink>
             </li>
 
             {categories.map((x, i) => (

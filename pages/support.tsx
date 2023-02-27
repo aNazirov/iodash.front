@@ -1,10 +1,30 @@
 import { GetServerSidePropsContext } from "next";
-import { CImg } from "../core/components/shared";
+import { useEffect } from "react";
+import { LessonList } from "../core/components/shared/lesson";
 import { wrapper } from "../core/store";
 import { autoLogIn } from "../core/store/global";
+import { useAppDispatch, useAppSelector } from "../core/store/hooks";
+import { clearLessons, getLessons } from "../core/store/lessons";
 import { getMainPageData } from "../core/store/main";
+import { clearSubscriptions } from "../core/store/subscriptions";
 
 const Support: React.FC = () => {
+  const { token } = useAppSelector((state) => state.global);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const promise = dispatch(
+      getLessons({
+        token: token ?? "",
+      })
+    );
+    return () => {
+      promise.abort();
+      dispatch(clearSubscriptions());
+      dispatch(clearLessons());
+    };
+  }, []);
+
   return (
     <section className="main-content">
       <h2 className="title title_indent-bt-small">Get In Touch</h2>
@@ -69,98 +89,7 @@ const Support: React.FC = () => {
         </form>
       </div>
       <h2 className="title">You may also like</h2>
-      <div className="works works_changed">
-        <div className="work">
-          <div className="work__photo">
-            <a href="#">
-              <CImg
-                src="img/src/work-img.jpg"
-                alt="Hero Header for Web design"
-              />
-            </a>
-          </div>
-          <h3 className="work__title">
-            <a href="#">Hero Header for Web design</a>
-          </h3>
-          <span className="program-name">
-            <CImg
-              className="program-name__logo"
-              src="img/src/figma.svg"
-              alt="Figma"
-            />
-            <span className="program-name__text">Figma</span>
-          </span>
-          <div className="work__bottom-panel">
-            <span className="work__price">$5</span>
-            <div className="work__right-col">
-              <span className="like">like</span>
-              <a href="#" className="btn btn_big-size btn__blue-color">
-                Download
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="work">
-          <div className="work__photo">
-            <a href="#">
-              <CImg
-                src="img/src/work-img.jpg"
-                alt="Hero Header for Web design"
-              />
-            </a>
-          </div>
-          <h3 className="work__title">
-            <a href="#">Hero Header for Web design</a>
-          </h3>
-          <span className="program-name">
-            <CImg
-              className="program-name__logo"
-              src="img/src/figma.svg"
-              alt="Figma"
-            />
-            <span className="program-name__text">Figma</span>
-          </span>
-          <div className="work__bottom-panel">
-            <span className="work__price">$5</span>
-            <div className="work__right-col">
-              <span className="like">like</span>
-              <a href="#" className="btn btn_big-size btn__blue-color">
-                Download
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="work">
-          <div className="work__photo">
-            <a href="#">
-              <CImg
-                src="img/src/work-img.jpg"
-                alt="Hero Header for Web design"
-              />
-            </a>
-          </div>
-          <h3 className="work__title">
-            <a href="#">Hero Header for Web design</a>
-          </h3>
-          <span className="program-name">
-            <CImg
-              className="program-name__logo"
-              src="img/src/figma.svg"
-              alt="Figma"
-            />
-            <span className="program-name__text">Figma</span>
-          </span>
-          <div className="work__bottom-panel">
-            <span className="work__price">$5</span>
-            <div className="work__right-col">
-              <span className="like">like</span>
-              <a href="#" className="btn btn_big-size btn__blue-color">
-                Download
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <LessonList classNames="works works_changed" />
     </section>
   );
 };

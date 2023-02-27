@@ -6,30 +6,34 @@ import { autoLogIn } from "../core/store/global";
 import { useAppDispatch, useAppSelector } from "../core/store/hooks";
 import { clearLessons, getLessons } from "../core/store/lessons";
 import { getMainPageData } from "../core/store/main";
+import { clearSubscriptions } from "../core/store/subscriptions";
 
-const Favourites: React.FC = () => {
+const AboutUs: React.FC = () => {
   const { token } = useAppSelector((state) => state.global);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const promise = dispatch(
       getLessons({
-        token: token!,
-        params: { isFavourites: true },
+        token: token ?? "",
       })
     );
-
     return () => {
       promise.abort();
+      dispatch(clearSubscriptions());
       dispatch(clearLessons());
     };
   }, []);
 
   return (
     <section className="main-content">
-      <h2 className="title">My Favorites</h2>
-      <LessonList />
+      <h2 className="title title_indent-bt-small">About Us</h2>
+      <p className="sub-title">
+        Design better websites and spend less time without restricting creative
+        freedom
+      </p>
+      <h2 className="title">You may also like</h2>
+      <LessonList classNames="works works_changed" />
     </section>
   );
 };
@@ -38,18 +42,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
     async ({ req: { cookies } }: GetServerSidePropsContext) => {
       const {
-        global: { token, user },
+        global: { token },
       } = store.getState();
 
       if (cookies["token"] && !token) {
         await store.dispatch(autoLogIn(cookies["token"]));
-      } else if (!cookies["token"] && !user && !token) {
-        return {
-          redirect: {
-            permanent: false,
-            destination: "/auth/sign-in",
-          },
-        };
       }
 
       await store.dispatch(getMainPageData({}));
@@ -60,4 +57,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
     }
 );
 
-export default Favourites;
+export default AboutUs;

@@ -50,8 +50,10 @@ export const Header: FC = () => {
                 <li className={classNames(pathname === "/info" && "active")}>
                   <CLink href="/info">Privacy Policy</CLink>
                 </li>
-                <li className={classNames(pathname === "/" && "active")}>
-                  <CLink href="/">About us</CLink>
+                <li
+                  className={classNames(pathname === "/about-us" && "active")}
+                >
+                  <CLink href="/about-us">About us</CLink>
                 </li>
                 <li className={classNames(pathname === "/support" && "active")}>
                   <CLink href="/support">Support</CLink>
@@ -110,7 +112,7 @@ export const Header: FC = () => {
                             </CLink>
                           </li>
                           <li>
-                            <a href="#">
+                            <CLink href="/purchases">
                               <span className="account__icon">
                                 <CImg
                                   src="/img/bg/account-icon-2.svg"
@@ -118,10 +120,10 @@ export const Header: FC = () => {
                                 />
                               </span>
                               <span className="account__link">Purchases</span>
-                            </a>
+                            </CLink>
                           </li>
                           <li>
-                            <a href="#">
+                            <CLink href="/profile">
                               <span className="account__icon">
                                 <CImg
                                   src="/img/bg/account-icon-3.svg"
@@ -131,7 +133,7 @@ export const Header: FC = () => {
                               <span className="account__link">
                                 Account Settings
                               </span>
-                            </a>
+                            </CLink>
                           </li>
                           <li onClick={logout}>
                             <a href="#">

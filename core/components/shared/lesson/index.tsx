@@ -45,6 +45,8 @@ export const LessonItem: React.FC<ILessonItemProps> = ({ token, lesson }) => {
     dispatch(logIn({ user: res, token }));
   };
 
+  console.log(lesson);
+
   return (
     <div className="work">
       <div className="work__photo">

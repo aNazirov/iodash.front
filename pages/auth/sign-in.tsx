@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { CImg, CLink } from "../../core/components/shared";
 import { wrapper } from "../../core/store";
-import { loginByPassword } from "../../core/store/global";
+import { autoLogIn, loginByPassword } from "../../core/store/global";
 import { useAppDispatch } from "../../core/store/hooks";
 import { getMainPageData } from "../../core/store/main";
 
@@ -109,12 +109,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
       } = store.getState();
 
       if (cookies["token"] && !token) {
-        return {
-          redirect: {
-            permanent: false,
-            destination: "/",
-          },
-        };
+        await store.dispatch(autoLogIn(cookies["token"]));
       }
 
       await store.dispatch(getMainPageData({}));

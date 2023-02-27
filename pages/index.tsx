@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import { FC, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { LessonList } from "../core/components/shared/lesson";
 import { wrapper } from "../core/store";
 import { autoLogIn } from "../core/store/global";
@@ -7,8 +8,13 @@ import { useAppDispatch, useAppSelector } from "../core/store/hooks";
 import { clearLessons, getLessons } from "../core/store/lessons";
 import { getMainPageData } from "../core/store/main";
 
+type IFormData = {
+  search: string;
+};
+
 const Main: FC = () => {
   const { token } = useAppSelector((state) => state.global);
+  const { handleSubmit, register } = useForm<IFormData>({});
 
   const dispatch = useAppDispatch();
 
@@ -25,6 +31,15 @@ const Main: FC = () => {
     };
   }, []);
 
+  const onSubmit = handleSubmit(async (data: IFormData) => {
+    dispatch(
+      getLessons({
+        token: token ?? "",
+        params: { search: data.search },
+      })
+    );
+  });
+
   return (
     <section className="main-content">
       <div className="search">
@@ -34,11 +49,11 @@ const Main: FC = () => {
         </h1>
         <p>Amaizing UI Elements for your web design</p>
         <div className="search__form">
-          <form>
+          <form onSubmit={onSubmit}>
             <input
               type="text"
-              name="search"
               placeholder="Search items, collections, and accounts"
+              {...register("search")}
             />
             <button type="submit" className="search__btn">
               search

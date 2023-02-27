@@ -28,7 +28,7 @@ class Api {
     url: string,
     config?: AxiosRequestConfig<D>
   ): Promise<R> {
-    return instance.get(url, config);
+    return this.instance.get(url, config);
   }
 
   post<T = any, R = AxiosResponse<T>, D = any>(
@@ -37,7 +37,7 @@ class Api {
     config?: AxiosRequestConfig<D>,
     message?: { pending: string; success: string }
   ): Promise<R> {
-    return Toast.promise(instance.post(url, data, config), {
+    return Toast.promise(this.instance.post(url, data, config), {
       pending: message?.pending || "Start posting ...",
       success: message?.success || "Posted",
     });
@@ -49,7 +49,7 @@ class Api {
     config?: AxiosRequestConfig<D>,
     message?: { pending: string; success: string }
   ): Promise<R> {
-    return Toast.promise(instance.patch(url, data, config), {
+    return Toast.promise(this.instance.patch(url, data, config), {
       pending: message?.pending || "Start updating ...",
       success: message?.success || "Updated",
     });
@@ -60,14 +60,12 @@ class Api {
     config?: AxiosRequestConfig<D>,
     message?: { pending: string; success: string }
   ): Promise<R> {
-    return Toast.promise(instance.delete(url, config), {
+    return Toast.promise(this.instance.delete(url, config), {
       pending: message?.pending || "Start deleting ...",
       success: message?.success || "Deleted",
     });
   }
 }
 
-const api = new Api(instance);
-const fileApi = new Api(fileInstance);
-
-export { api, fileApi };
+export const api = new Api(instance);
+export const fileApi = new Api(fileInstance);

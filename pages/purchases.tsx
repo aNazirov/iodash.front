@@ -16,7 +16,7 @@ const Favourites: React.FC = () => {
     const promise = dispatch(
       getLessons({
         token: token!,
-        params: { isFavourites: true },
+        params: { isDownloads: true },
       })
     );
 
@@ -28,7 +28,7 @@ const Favourites: React.FC = () => {
 
   return (
     <section className="main-content">
-      <h2 className="title">My Favorites</h2>
+      <h2 className="title">My Purchases</h2>
       <LessonList />
     </section>
   );
