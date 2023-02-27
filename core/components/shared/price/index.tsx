@@ -19,7 +19,7 @@ export const PriceItem: React.FC<IPriceItemProps> = ({
   currentSubscriptionId,
 }) => {
   const isCurrentSubscription = currentSubscriptionId === subscription.id;
-  const points = subscription.points?.split(",") as string[];
+  const points = (subscription.points?.split(",") as string[]) ?? [];
   const dispatch = useAppDispatch();
 
   const onClick = useCallback(async () => {

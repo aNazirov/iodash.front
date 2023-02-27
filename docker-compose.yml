@@ -4,7 +4,7 @@ services:
   front:
     build: ./
     volumes:
-      - /usr/src/app/.next
+      # - /usr/src/app/.next
       - /usr/src/app/node_modules
       - /usr/src/app/public:/app/public
     restart: always

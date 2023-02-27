@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { Router, useRouter } from "next/router";
+import { Router } from "next/router";
 import NProgress from "nprogress";
 import { FC } from "react";
 import { Provider } from "react-redux";
@@ -15,7 +15,6 @@ Router.events.on("routeChangeError", () => NProgress.done());
 
 const App: FC<AppProps> = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { pathname } = useRouter();
 
   return (
     <Provider store={store}>
@@ -34,4 +33,4 @@ const App: FC<AppProps> = ({ Component, ...rest }) => {
   );
 };
 
-export default wrapper.withRedux(App);
+export default App;
